@@ -58,7 +58,9 @@ function Products() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const categoryParam = params.get('category');
-    if (categoryParam) setSelectedCategory(categoryParam);
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
   }, [location]);
 
   const showAddedNotification = (productName) => {
@@ -138,7 +140,6 @@ function Products() {
       <h1 style={{ fontSize: 'clamp(20px, 5vw, 24px)', marginBottom: '10px' }}>{selectedCategory === 'all' ? 'All Products' : selectedCategory}</h1>
       <p style={{ marginBottom: '20px', color: '#666' }}>{filteredProducts.length} products found</p>
 
-      {/* Search and Sort */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '30px' }}>
         <input 
           type="text" 
@@ -156,14 +157,7 @@ function Products() {
         </select>
       </div>
 
-      {/* Category Filters */}
-      <div style={{ 
-        display: 'flex', 
-        gap: '10px', 
-        flexWrap: 'wrap', 
-        marginBottom: '30px',
-        justifyContent: 'center'
-      }}>
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '30px', justifyContent: 'center' }}>
         {categories.map(cat => (
           <button 
             key={cat} 
@@ -183,12 +177,7 @@ function Products() {
         ))}
       </div>
 
-      {/* Products Grid - Shows ALL products in selected category */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
-        gap: '20px' 
-      }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
         {filteredProducts.map(product => (
           <div key={product._id} style={{ background: 'white', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'relative' }}>
             {product.discount > 0 && (
