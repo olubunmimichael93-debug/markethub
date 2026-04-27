@@ -9,7 +9,7 @@ function Home() {
   const [featured, setFeatured] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products')
+    axios.get('https://markethub-aj3o.onrender.com/api/products')
       .then(res => {
         setProducts(res.data.slice(0, 4));
         setFeatured(res.data.slice(0, 4));

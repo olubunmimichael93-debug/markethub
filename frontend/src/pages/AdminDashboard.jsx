@@ -37,10 +37,10 @@ function AdminDashboard() {
     setLoading(true);
     try {
       const [statsRes, usersRes, productsRes, ordersRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/admin/stats', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://localhost:5000/api/admin/users', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://localhost:5000/api/admin/products', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://localhost:5000/api/admin/orders', { headers: { Authorization: `Bearer ${token}` } })
+        axios.get('https://markethub-aj3o.onrender.com/api/admin/stats', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get('https://markethub-aj3o.onrender.com/api/admin/users', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get('https://markethub-aj3o.onrender.com/api/admin/products', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get('https://markethub-aj3o.onrender.com/api/admin/orders', { headers: { Authorization: `Bearer ${token}` } })
       ]);
       
       setStats(statsRes.data.stats);
@@ -57,11 +57,11 @@ function AdminDashboard() {
     e.preventDefault();
     try {
       if (editingProduct) {
-        await axios.put(`http://localhost:5000/api/admin/products/${editingProduct._id}`, productForm, {
+        await axios.put(`https://markethub-aj3o.onrender.com/api/admin/products/${editingProduct._id}`, productForm, {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post('http://localhost:5000/api/admin/products', productForm, {
+        await axios.post('https://markethub-aj3o.onrender.com/api/admin/products', productForm, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }
@@ -78,7 +78,7 @@ function AdminDashboard() {
   const handleDeleteProduct = async (productId) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/products/${productId}`, {
+        await axios.delete(`https://markethub-aj3o.onrender.com/api/admin/products/${productId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchData();
@@ -91,7 +91,7 @@ function AdminDashboard() {
 
   const handleUpdateOrderStatus = async (orderId, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/orders/${orderId}/status`, { status }, {
+      await axios.put(`https://markethub-aj3o.onrender.com/api/admin/orders/${orderId}/status`, { status }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData();
@@ -103,7 +103,7 @@ function AdminDashboard() {
 
   const handleToggleAdmin = async (userId, isAdmin) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/users/${userId}/role`, { isAdmin: !isAdmin }, {
+      await axios.put(`https://markethub-aj3o.onrender.com/api/admin/users/${userId}/role`, { isAdmin: !isAdmin }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData();

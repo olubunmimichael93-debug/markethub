@@ -24,7 +24,7 @@ function Checkout() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get('https://markethub-aj3o.onrender.com/api/products');
         const images = {};
         response.data.forEach(product => {
           images[product.name] = product.image;

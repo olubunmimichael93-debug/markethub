@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/auth/profile', {
+      const response = await axios.get('https://markethub-aj3o.onrender.com/api/auth/profile', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/orders/myorders', {
+      const response = await axios.get('https://markethub-aj3o.onrender.com/api/orders/myorders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchWishlist = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/wishlist', {
+      const response = await axios.get('https://markethub-aj3o.onrender.com/api/wishlist', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post('https://markethub-aj3o.onrender.com/api/auth/login', { email, password });
       
       if (response.data.success) {
         setToken(response.data.token);
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password, phone) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', { name, email, password, phone });
+      const response = await axios.post('https://markethub-aj3o.onrender.com/api/auth/register', { name, email, password, phone });
       
       if (response.data.success) {
         setToken(response.data.token);
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (userData) => {
     setLoading(true);
     try {
-      const response = await axios.put('http://localhost:5000/api/auth/profile', userData, {
+      const response = await axios.put('https://markethub-aj3o.onrender.com/api/auth/profile', userData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }) => {
   const changePassword = async (currentPassword, newPassword) => {
     setLoading(true);
     try {
-      const response = await axios.put('http://localhost:5000/api/auth/change-password', 
+      const response = await axios.put('https://markethub-aj3o.onrender.com/api/auth/change-password', 
         { currentPassword, newPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -156,7 +156,7 @@ export const AuthProvider = ({ children }) => {
 
   const createOrder = async (orderData) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/orders', orderData, {
+      const response = await axios.post('https://markethub-aj3o.onrender.com/api/orders', orderData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -171,7 +171,7 @@ export const AuthProvider = ({ children }) => {
 
   const getOrderDetails = async (orderId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/orders/${orderId}`, {
+      const response = await axios.get(`https://markethub-aj3o.onrender.com/api/orders/${orderId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -185,7 +185,7 @@ export const AuthProvider = ({ children }) => {
 
   const addToWishlist = async (productId) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/wishlist/add', 
+      const response = await axios.post('https://markethub-aj3o.onrender.com/api/wishlist/add', 
         { productId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -201,7 +201,7 @@ export const AuthProvider = ({ children }) => {
 
   const removeFromWishlist = async (productId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/wishlist/remove/${productId}`, {
+      const response = await axios.delete(`https://markethub-aj3o.onrender.com/api/wishlist/remove/${productId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -216,7 +216,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkInWishlist = async (productId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/wishlist/check/${productId}`, {
+      const response = await axios.get(`https://markethub-aj3o.onrender.com/api/wishlist/check/${productId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -230,7 +230,7 @@ export const AuthProvider = ({ children }) => {
 
   const addAddress = async (address) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/addresses', address, {
+      const response = await axios.post('https://markethub-aj3o.onrender.com/api/auth/addresses', address, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -245,7 +245,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateAddress = async (addressId, updates) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/auth/addresses/${addressId}`, updates, {
+      const response = await axios.put(`https://markethub-aj3o.onrender.com/api/auth/addresses/${addressId}`, updates, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -260,7 +260,7 @@ export const AuthProvider = ({ children }) => {
 
   const deleteAddress = async (addressId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/auth/addresses/${addressId}`, {
+      const response = await axios.delete(`https://markethub-aj3o.onrender.com/api/auth/addresses/${addressId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -275,7 +275,7 @@ export const AuthProvider = ({ children }) => {
 
   const addPaymentMethod = async (payment) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/payments', payment, {
+      const response = await axios.post('https://markethub-aj3o.onrender.com/api/auth/payments', payment, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -290,7 +290,7 @@ export const AuthProvider = ({ children }) => {
 
   const deletePaymentMethod = async (paymentId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/auth/payments/${paymentId}`, {
+      const response = await axios.delete(`https://markethub-aj3o.onrender.com/api/auth/payments/${paymentId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -305,7 +305,7 @@ export const AuthProvider = ({ children }) => {
 
   const setDefaultPayment = async (paymentId) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/auth/payments/${paymentId}/default`, {}, {
+      const response = await axios.put(`https://markethub-aj3o.onrender.com/api/auth/payments/${paymentId}/default`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -320,7 +320,7 @@ export const AuthProvider = ({ children }) => {
 
   const updatePreferences = async (preferences) => {
     try {
-      const response = await axios.put('http://localhost:5000/api/auth/preferences', preferences, {
+      const response = await axios.put('https://markethub-aj3o.onrender.com/api/auth/preferences', preferences, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {

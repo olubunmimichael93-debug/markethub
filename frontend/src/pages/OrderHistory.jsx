@@ -62,7 +62,7 @@ function OrderHistory() {
     
     setCancelling(orderId);
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/cancel`, {
+      const response = await fetch(`https://markethub-aj3o.onrender.com/api/orders/${orderId}/cancel`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
