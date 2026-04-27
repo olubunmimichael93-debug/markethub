@@ -7,8 +7,9 @@ dotenv.config();
 
 const app = express();
 
+// Allow all origins for now (fix for Vercel)
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  origin: '*',
   credentials: true
 }));
 app.use(express.json());
@@ -19,12 +20,14 @@ const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 const wishlistRoutes = require('./routes/wishlist');
 const adminRoutes = require('./routes/admin');
+const reviewRoutes = require('./routes/reviews');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/wishlist', wishlistRoutes);
-app.use('/api/admin', adminRoutes);  // NEW
+app.use('/api/admin', adminRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 // Test route
 app.get('/api/test', (req, res) => {
@@ -38,12 +41,5 @@ mongoose.connect(process.env.MONGODB_URI)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📝 Test API: http://localhost:${PORT}/api/test`);
-  console.log(`🔐 Auth API: http://localhost:${PORT}/api/auth`);
-  console.log(`📦 Orders API: http://localhost:${PORT}/api/orders`);
-  console.log(`❤️ Wishlist API: http://localhost:${PORT}/api/wishlist`);
-  console.log(`👑 Admin API: http://localhost:${PORT}/api/admin`);
+  console.log(`📦 Products API: http://localhost:${PORT}/api/products`);
 });
-// Review routes
-const reviewRoutes = require('./routes/reviews');
-app.use('/api/reviews', reviewRoutes);
