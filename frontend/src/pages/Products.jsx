@@ -138,7 +138,7 @@ function Products() {
       <h1 style={{ fontSize: 'clamp(20px, 5vw, 24px)', marginBottom: '10px' }}>{selectedCategory === 'all' ? 'All Products' : selectedCategory}</h1>
       <p style={{ marginBottom: '20px', color: '#666' }}>{filteredProducts.length} products found</p>
 
-      {/* Search and Sort - Mobile Responsive */}
+      {/* Search and Sort */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '30px' }}>
         <input 
           type="text" 
@@ -156,7 +156,7 @@ function Products() {
         </select>
       </div>
 
-      {/* Category Filters - Scrollable on mobile */}
+      {/* Category Filters */}
       <div style={{ 
         display: 'flex', 
         gap: '10px', 
@@ -183,10 +183,10 @@ function Products() {
         ))}
       </div>
 
-      {/* Products Grid - Mobile Responsive */}
+      {/* Products Grid - Shows ALL products in selected category */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
         gap: '20px' 
       }}>
         {filteredProducts.map(product => (
@@ -243,7 +243,14 @@ function Products() {
         ))}
       </div>
 
-      {filteredProducts.length === 0 && <div style={{ textAlign: 'center', padding: '50px' }}>No products found</div>}
+      {filteredProducts.length === 0 && (
+        <div style={{ textAlign: 'center', padding: '50px' }}>
+          <p>No products found in this category.</p>
+          <button onClick={() => setSelectedCategory('all')} style={{ marginTop: '10px', padding: '10px 20px', background: '#ff6600', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+            View All Products
+          </button>
+        </div>
+      )}
 
       <style>{`
         @keyframes slideIn {
