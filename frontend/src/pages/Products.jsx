@@ -124,7 +124,7 @@ function Products() {
   }
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 20px' }}>
+    <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 15px' }}>
       {showNotification && (
         <div style={{
           position: 'fixed', top: '80px', right: '20px', background: '#28a745', color: 'white',
@@ -135,12 +135,19 @@ function Products() {
         </div>
       )}
 
-      <h1 style={{ fontSize: '24px', marginBottom: '10px' }}>{selectedCategory === 'all' ? 'All Products' : selectedCategory}</h1>
+      <h1 style={{ fontSize: 'clamp(20px, 5vw, 24px)', marginBottom: '10px' }}>{selectedCategory === 'all' ? 'All Products' : selectedCategory}</h1>
       <p style={{ marginBottom: '20px', color: '#666' }}>{filteredProducts.length} products found</p>
 
-      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '30px' }}>
-        <input type="text" placeholder="Search products..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ flex: 1, padding: '12px', border: '1px solid #ddd', borderRadius: '5px', maxWidth: '300px' }} />
-        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }}>
+      {/* Search and Sort - Mobile Responsive */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '30px' }}>
+        <input 
+          type="text" 
+          placeholder="Search products..." 
+          value={searchTerm} 
+          onChange={(e) => setSearchTerm(e.target.value)} 
+          style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} 
+        />
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }}>
           <option value="default">Sort by: Recommended</option>
           <option value="price-low">Price: Low to High</option>
           <option value="price-high">Price: High to Low</option>
@@ -149,17 +156,41 @@ function Products() {
         </select>
       </div>
 
-      <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginBottom: '30px' }}>
+      {/* Category Filters - Scrollable on mobile */}
+      <div style={{ 
+        display: 'flex', 
+        gap: '10px', 
+        flexWrap: 'wrap', 
+        marginBottom: '30px',
+        justifyContent: 'center'
+      }}>
         {categories.map(cat => (
-          <button key={cat} onClick={() => setSelectedCategory(cat)} style={{ padding: '8px 20px', background: selectedCategory === cat ? '#ff6600' : '#f0f0f0', color: selectedCategory === cat ? 'white' : '#333', border: 'none', borderRadius: '20px', cursor: 'pointer' }}>
+          <button 
+            key={cat} 
+            onClick={() => setSelectedCategory(cat)} 
+            style={{ 
+              padding: '8px 20px', 
+              background: selectedCategory === cat ? '#ff6600' : '#f0f0f0', 
+              color: selectedCategory === cat ? 'white' : '#333', 
+              border: 'none', 
+              borderRadius: '20px', 
+              cursor: 'pointer',
+              fontSize: 'clamp(12px, 3vw, 14px)'
+            }}
+          >
             {cat === 'all' ? 'All Products' : cat}
           </button>
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px' }}>
+      {/* Products Grid - Mobile Responsive */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
+        gap: '20px' 
+      }}>
         {filteredProducts.map(product => (
-          <div key={product._id} style={{ background: 'white', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', position: 'relative' }}>
+          <div key={product._id} style={{ background: 'white', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'relative' }}>
             {product.discount > 0 && (
               <div style={{ position: 'absolute', top: '10px', left: '10px', background: '#ff4444', color: 'white', padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold', zIndex: 1 }}>-{product.discount}%</div>
             )}
@@ -181,15 +212,15 @@ function Products() {
                 />
               </div>
               <div style={{ padding: '15px' }}>
-                <h3 style={{ fontSize: '15px', marginBottom: '5px', color: '#333', fontWeight: 'bold' }}>{product.name}</h3>
+                <h3 style={{ fontSize: 'clamp(13px, 4vw, 15px)', marginBottom: '5px', color: '#333', fontWeight: 'bold' }}>{product.name}</h3>
                 <p style={{ color: '#666', fontSize: '12px', marginBottom: '5px' }}>{product.brand || 'MarketHub'}</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginBottom: '5px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginBottom: '5px', flexWrap: 'wrap' }}>
                   {renderStars(product.rating || 4)}
                   <span style={{ fontSize: '10px', color: '#666' }}>({product.reviews || 0})</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#ff6600' }}>₦{product.price.toLocaleString()}</span>
-                  {product.originalPrice && <span style={{ fontSize: '12px', color: '#999', textDecoration: 'line-through', marginLeft: '8px' }}>₦{product.originalPrice.toLocaleString()}</span>}
+                  <span style={{ fontSize: 'clamp(14px, 4vw, 18px)', fontWeight: 'bold', color: '#ff6600' }}>₦{product.price.toLocaleString()}</span>
+                  {product.originalPrice && <span style={{ fontSize: '11px', color: '#999', textDecoration: 'line-through', marginLeft: '8px' }}>₦{product.originalPrice.toLocaleString()}</span>}
                 </div>
                 <p style={{ fontSize: '11px', color: '#28a745', marginTop: '5px' }}>{product.sold || 0}+ sold</p>
               </div>
@@ -204,7 +235,7 @@ function Products() {
                   <button onClick={() => updateQuantity(product._id, (quantities[product._id] || 1) + 1)} style={{ width: '28px', height: '28px', border: '1px solid #ddd', background: 'white', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}>+</button>
                 </div>
               </div>
-              <button onClick={() => handleAddToCart(product)} style={{ width: '100%', background: '#ff6600', color: 'white', border: 'none', padding: '10px', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold', fontSize: '14px' }}>
+              <button onClick={() => handleAddToCart(product)} style={{ width: '100%', background: '#ff6600', color: 'white', border: 'none', padding: '10px', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold', fontSize: 'clamp(12px, 3vw, 14px)' }}>
                 Add to Cart • ₦{(product.price * (quantities[product._id] || 1)).toLocaleString()}
               </button>
             </div>
