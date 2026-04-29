@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaStar, FaStarHalfAlt, FaRegStar, FaHeart, FaRegHeart, FaCheck, FaSpinner } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar, FaHeart, FaRegHeart, FaCheck, FaShoppingCart } from 'react-icons/fa';
 import axios from 'axios';
 import ProductSkeleton from '../components/ProductSkeleton';
 
