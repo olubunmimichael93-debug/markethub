@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar, FaMobileAlt, FaLaptop, FaHeadphones, FaTshirt, FaHome, FaFutbol } from 'react-icons/fa';
 
 function Home() {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ function Home() {
 
   return (
     <div>
-      {/* Hero Section - Clean */}
+      {/* Hero Section */}
       <div style={{ textAlign: 'center', padding: '80px 20px', background: 'linear-gradient(135deg, #f5f5f5 0%, #fff 100%)', borderBottom: '1px solid #eee' }}>
         <h1 style={{ fontSize: 'clamp(28px, 6vw, 42px)', marginBottom: '15px', color: '#333' }}>Welcome to MarketHub</h1>
         <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#666', marginBottom: '30px' }}>Nigeria's #1 Online Marketplace</p>
@@ -96,7 +96,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Categories - Professional Grid */}
+      {/* Categories */}
       <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 20px' }}>
         <h2 style={{ textAlign: 'center', fontSize: '24px', marginBottom: '30px', color: '#333' }}>Shop by Category</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
