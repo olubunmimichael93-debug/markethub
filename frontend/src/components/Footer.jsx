@@ -39,11 +39,11 @@ function Footer() {
           <div>
             <h3 style={{ color: '#fff', fontSize: '16px', marginBottom: '20px', fontWeight: '600' }}>Customer Service</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>Help Center</a></li>
-              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>Returns & Refunds</a></li>
-              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>Shipping Info</a></li>
-              <li style={{ marginBottom: '12px' }}><Link to="/contact" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>Contact Us</a></li>
-              <li><Link to="/faq" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>FAQ</a></li>
+              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Help Center</a></li>
+              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Returns & Refunds</a></li>
+              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Shipping Info</a></li>
+              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Contact Us</a></li>
+              <li><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>FAQ</a></li>
             </ul>
           </div>
 
@@ -51,11 +51,11 @@ function Footer() {
           <div>
             <h3 style={{ color: '#fff', fontSize: '16px', marginBottom: '20px', fontWeight: '600' }}>Quick Links</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              <li style={{ marginBottom: '12px' }}><Link to="/account" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>My Account</a></li>
-              <li style={{ marginBottom: '12px' }}><Link to="/orders" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>My Orders</a></li>
-              <li style={{ marginBottom: '12px' }}><Link to="/wishlist" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>Wishlist</a></li>
-              <li style={{ marginBottom: '12px' }}><Link to="/products" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>All Products</a></li>
-              <li><Link to="/flash-sales" style={{ color: '#888', textDecoration: 'none', fontSize: '13px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ff6600'} onMouseLeave={(e) => e.currentTarget.style.color = '#888'}>Flash Sales</a></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/account" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>My Account</Link></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/orders" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>My Orders</Link></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/wishlist" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Wishlist</Link></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/products" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>All Products</Link></li>
+              <li><Link to="/flash-sales" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Flash Sales</Link></li>
             </ul>
           </div>
 
