@@ -9,11 +9,27 @@ dotenv.config();
 const app = express();
 const cache = new NodeCache({ stdTTL: 300 }); // Cache for 5 minutes
 
+// CORS - Allow all origins for now
 app.use(cors({
   origin: ['http://localhost:5173', 'http://localhost:5174', 'https://markethub-sandy.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
+
+// Cache middleware for products
+const cacheProducts = (req, res, next) => {
+  const key = req.originalUrl;
+  const cachedData = cache.get(key);
+  if (cachedData) {
+    return res.json(cachedData);
+  }
+  res.originalJson = res.json;
+  res.json = (body) => {
+    cache.set(key, body, 300);
+    res.originalJson(body);
+  };
+  next();
+};
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -23,25 +39,9 @@ const wishlistRoutes = require('./routes/wishlist');
 const adminRoutes = require('./routes/admin');
 const reviewRoutes = require('./routes/reviews');
 
-// Cache middleware for products
-const cacheMiddleware = (duration) => {
-  return (req, res, next) => {
-    const key = req.originalUrl;
-    const cachedResponse = cache.get(key);
-    if (cachedResponse) {
-      return res.json(cachedResponse);
-    }
-    res.originalJson = res.json;
-    res.json = (body) => {
-      cache.set(key, body, duration);
-      res.originalJson(body);
-    };
-    next();
-  };
-};
-
+// Apply cache only to GET products
 app.use('/api/auth', authRoutes);
-app.use('/api/products', cacheMiddleware(300), productRoutes);
+app.use('/api/products', cacheProducts, productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/admin', adminRoutes);
@@ -49,7 +49,7 @@ app.use('/api/reviews', reviewRoutes);
 
 // Test route
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Backend is working!' });
+  res.json({ message: 'Backend is working! Caching enabled.' });
 });
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -60,4 +60,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📦 Products API (cached 5 min): http://localhost:${PORT}/api/products`);
+  console.log(`✅ Cache enabled - products will load faster!`);
 });
