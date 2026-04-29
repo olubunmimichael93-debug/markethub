@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaStar, FaStarHalfAlt, FaRegStar, FaHeart, FaRegHeart, FaCheck } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar, FaHeart, FaRegHeart, FaCheck, FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
+import ProductSkeleton from '../components/ProductSkeleton';
 
 function Products() {
   const { addToCart } = useCart();
@@ -22,10 +23,10 @@ function Products() {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const response = await axios.get('https://markethub-aj3o.onrender.com/api/products');
         setProducts(response.data);
-        setLoading(false);
         const initialQtys = {};
         response.data.forEach(product => {
           initialQtys[product._id] = 1;
@@ -33,7 +34,8 @@ function Products() {
         setQuantities(initialQtys);
       } catch (error) {
         console.error('Error:', error);
-        setLoading(false);
+      } finally {
+        setTimeout(() => setLoading(false), 500);
       }
     };
     fetchProducts();
@@ -58,9 +60,7 @@ function Products() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const categoryParam = params.get('category');
-    if (categoryParam) {
-      setSelectedCategory(categoryParam);
-    }
+    if (categoryParam) setSelectedCategory(categoryParam);
   }, [location]);
 
   const showAddedNotification = (productName) => {
@@ -122,11 +122,17 @@ function Products() {
   };
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '80px' }}>Loading products...</div>;
+    return (
+      <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+          {[1,2,3,4,5,6].map(i => <ProductSkeleton key={i} />)}
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 15px' }}>
+    <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 20px' }}>
       {showNotification && (
         <div style={{
           position: 'fixed', top: '80px', right: '20px', background: '#28a745', color: 'white',
@@ -137,18 +143,18 @@ function Products() {
         </div>
       )}
 
-      <h1 style={{ fontSize: 'clamp(20px, 5vw, 24px)', marginBottom: '10px' }}>{selectedCategory === 'all' ? 'All Products' : selectedCategory}</h1>
+      <h1 style={{ fontSize: 'clamp(20px, 5vw, 28px)', marginBottom: '10px' }}>{selectedCategory === 'all' ? 'All Products' : selectedCategory}</h1>
       <p style={{ marginBottom: '20px', color: '#666' }}>{filteredProducts.length} products found</p>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '30px' }}>
+      <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginBottom: '30px' }}>
         <input 
           type="text" 
           placeholder="Search products..." 
           value={searchTerm} 
           onChange={(e) => setSearchTerm(e.target.value)} 
-          style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }} 
+          style={{ flex: 1, padding: '12px', border: '1px solid #ddd', borderRadius: '8px', fontSize: '14px', maxWidth: '300px' }} 
         />
-        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '5px' }}>
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '8px' }}>
           <option value="default">Sort by: Recommended</option>
           <option value="price-low">Price: Low to High</option>
           <option value="price-high">Price: High to Low</option>
@@ -157,19 +163,19 @@ function Products() {
         </select>
       </div>
 
-      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '30px', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '30px' }}>
         {categories.map(cat => (
           <button 
             key={cat} 
             onClick={() => setSelectedCategory(cat)} 
             style={{ 
               padding: '8px 20px', 
-              background: selectedCategory === cat ? '#ff6600' : '#f0f0f0', 
-              color: selectedCategory === cat ? 'white' : '#333', 
+              background: selectedCategory === cat ? '#ff6600' : '#f5f5f5', 
+              color: selectedCategory === cat ? 'white' : '#555', 
               border: 'none', 
-              borderRadius: '20px', 
+              borderRadius: '25px', 
               cursor: 'pointer',
-              fontSize: 'clamp(12px, 3vw, 14px)'
+              fontWeight: selectedCategory === cat ? 'bold' : 'normal'
             }}
           >
             {cat === 'all' ? 'All Products' : cat}
@@ -177,55 +183,47 @@ function Products() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px' }}>
         {filteredProducts.map(product => (
-          <div key={product._id} style={{ background: 'white', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'relative' }}>
+          <div key={product._id} style={{ background: '#fff', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', position: 'relative', transition: 'transform 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}>
             {product.discount > 0 && (
-              <div style={{ position: 'absolute', top: '10px', left: '10px', background: '#ff4444', color: 'white', padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold', zIndex: 1 }}>-{product.discount}%</div>
+              <div style={{ position: 'absolute', top: '12px', left: '12px', background: '#ff4444', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold', zIndex: 1 }}>-{product.discount}%</div>
             )}
             
-            <button onClick={(e) => handleWishlistClick(product._id, e)} style={{ position: 'absolute', top: '10px', right: '10px', background: 'white', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              {wishlistStatus[product._id] ? <FaHeart style={{ color: '#ff4444' }} /> : <FaRegHeart style={{ color: '#666' }} />}
+            <button onClick={(e) => handleWishlistClick(product._id, e)} style={{ position: 'absolute', top: '12px', right: '12px', background: 'white', border: 'none', borderRadius: '50%', width: '34px', height: '34px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 1, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+              {wishlistStatus[product._id] ? <FaHeart style={{ color: '#ff4444' }} /> : <FaRegHeart style={{ color: '#999' }} />}
             </button>
 
             <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
-              <div style={{ padding: '20px', textAlign: 'center', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  style={{ maxWidth: '100%', maxHeight: '150px', objectFit: 'contain' }}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = 'https://placehold.co/300x300/ff6600/white?text=' + encodeURIComponent(product.name);
-                  }}
-                />
+              <div style={{ padding: '25px', textAlign: 'center', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fafafa' }}>
+                <img src={product.image} alt={product.name} style={{ maxWidth: '100%', maxHeight: '140px', objectFit: 'contain' }} />
               </div>
-              <div style={{ padding: '15px' }}>
-                <h3 style={{ fontSize: 'clamp(13px, 4vw, 15px)', marginBottom: '5px', color: '#333', fontWeight: 'bold' }}>{product.name}</h3>
-                <p style={{ color: '#666', fontSize: '12px', marginBottom: '5px' }}>{product.brand || 'MarketHub'}</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginBottom: '5px', flexWrap: 'wrap' }}>
+              <div style={{ padding: '16px' }}>
+                <h3 style={{ fontSize: '15px', marginBottom: '8px', color: '#333', fontWeight: '600' }}>{product.name}</h3>
+                <p style={{ color: '#666', fontSize: '12px', marginBottom: '8px' }}>{product.brand || 'MarketHub'}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '8px' }}>
                   {renderStars(product.rating || 4)}
-                  <span style={{ fontSize: '10px', color: '#666' }}>({product.reviews || 0})</span>
+                  <span style={{ fontSize: '11px', color: '#666' }}>({product.reviews || 0})</span>
                 </div>
-                <div>
-                  <span style={{ fontSize: 'clamp(14px, 4vw, 18px)', fontWeight: 'bold', color: '#ff6600' }}>₦{product.price.toLocaleString()}</span>
-                  {product.originalPrice && <span style={{ fontSize: '11px', color: '#999', textDecoration: 'line-through', marginLeft: '8px' }}>₦{product.originalPrice.toLocaleString()}</span>}
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#ff6600' }}>₦{product.price.toLocaleString()}</span>
+                  {product.originalPrice && <span style={{ fontSize: '12px', color: '#999', textDecoration: 'line-through' }}>₦{product.originalPrice.toLocaleString()}</span>}
                 </div>
-                <p style={{ fontSize: '11px', color: '#28a745', marginTop: '5px' }}>{product.sold || 0}+ sold</p>
+                <p style={{ fontSize: '11px', color: '#28a745', marginTop: '6px' }}>{product.sold || 0}+ sold</p>
               </div>
             </Link>
             
-            <div style={{ padding: '12px 15px 15px', borderTop: '1px solid #f0f0f0' }}>
+            <div style={{ padding: '12px 16px 16px', borderTop: '1px solid #f0f0f0' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
                 <span style={{ fontSize: '12px', color: '#666' }}>Qty:</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f5f5f5', borderRadius: '5px', padding: '3px' }}>
-                  <button onClick={() => updateQuantity(product._id, (quantities[product._id] || 1) - 1)} style={{ width: '28px', height: '28px', border: '1px solid #ddd', background: 'white', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}>−</button>
-                  <span style={{ minWidth: '30px', textAlign: 'center', fontSize: '14px', fontWeight: 'bold' }}>{quantities[product._id] || 1}</span>
-                  <button onClick={() => updateQuantity(product._id, (quantities[product._id] || 1) + 1)} style={{ width: '28px', height: '28px', border: '1px solid #ddd', background: 'white', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}>+</button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#f5f5f5', borderRadius: '8px', padding: '4px' }}>
+                  <button onClick={() => updateQuantity(product._id, (quantities[product._id] || 1) - 1)} style={{ width: '30px', height: '30px', border: '1px solid #ddd', background: 'white', cursor: 'pointer', borderRadius: '6px', fontWeight: 'bold' }}>−</button>
+                  <span style={{ minWidth: '35px', textAlign: 'center', fontSize: '15px', fontWeight: 'bold' }}>{quantities[product._id] || 1}</span>
+                  <button onClick={() => updateQuantity(product._id, (quantities[product._id] || 1) + 1)} style={{ width: '30px', height: '30px', border: '1px solid #ddd', background: 'white', cursor: 'pointer', borderRadius: '6px', fontWeight: 'bold' }}>+</button>
                 </div>
               </div>
-              <button onClick={() => handleAddToCart(product)} style={{ width: '100%', background: '#ff6600', color: 'white', border: 'none', padding: '10px', cursor: 'pointer', borderRadius: '5px', fontWeight: 'bold', fontSize: 'clamp(12px, 3vw, 14px)' }}>
-                Add to Cart • ₦{(product.price * (quantities[product._id] || 1)).toLocaleString()}
+              <button onClick={() => handleAddToCart(product)} style={{ width: '100%', background: '#ff6600', color: 'white', border: 'none', padding: '12px', cursor: 'pointer', borderRadius: '8px', fontWeight: 'bold', fontSize: '14px' }}>
+                <FaShoppingCart style={{ marginRight: '8px' }} /> Add to Cart
               </button>
             </div>
           </div>
@@ -233,11 +231,9 @@ function Products() {
       </div>
 
       {filteredProducts.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '50px' }}>
+        <div style={{ textAlign: 'center', padding: '60px' }}>
           <p>No products found in this category.</p>
-          <button onClick={() => setSelectedCategory('all')} style={{ marginTop: '10px', padding: '10px 20px', background: '#ff6600', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-            View All Products
-          </button>
+          <button onClick={() => setSelectedCategory('all')} style={{ marginTop: '15px', padding: '10px 25px', background: '#ff6600', color: 'white', border: 'none', borderRadius: '25px', cursor: 'pointer' }}>View All Products</button>
         </div>
       )}
 
