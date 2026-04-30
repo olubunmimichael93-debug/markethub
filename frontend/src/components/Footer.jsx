@@ -35,19 +35,19 @@ function Footer() {
             </div>
           </div>
 
-          {/* Customer Service Column */}
+          {/* Customer Service Column - With working links */}
           <div>
             <h3 style={{ color: '#fff', fontSize: '16px', marginBottom: '20px', fontWeight: '600' }}>Customer Service</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Help Center</a></li>
               <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Returns & Refunds</a></li>
               <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Shipping Info</a></li>
-              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Contact Us</a></li>
-              <li><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>FAQ</a></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/contact" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Contact Us</Link></li>
+              <li><Link to="/faq" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>FAQ</Link></li>
             </ul>
           </div>
 
-          {/* Quick Links Column */}
+          {/* Quick Links Column - With working links */}
           <div>
             <h3 style={{ color: '#fff', fontSize: '16px', marginBottom: '20px', fontWeight: '600' }}>Quick Links</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
