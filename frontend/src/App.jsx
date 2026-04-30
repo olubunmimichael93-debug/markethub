@@ -18,6 +18,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import HelpCenter from './pages/HelpCenter';
 
 function App() {
   return (
@@ -41,6 +44,9 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/admin-login" element={<AdminLogin />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/help-center" element={<HelpCenter />} />
             </Routes>
             <Footer />
           </Router>

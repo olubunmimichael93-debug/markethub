@@ -35,13 +35,13 @@ function Footer() {
             </div>
           </div>
 
-          {/* Customer Service Column - With working links */}
+          {/* Customer Service Column - ALL WORKING LINKS */}
           <div>
             <h3 style={{ color: '#fff', fontSize: '16px', marginBottom: '20px', fontWeight: '600' }}>Customer Service</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Help Center</a></li>
-              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Returns & Refunds</a></li>
-              <li style={{ marginBottom: '12px' }}><a href="#" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Shipping Info</a></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/help-center" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Help Center</Link></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/returns" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Returns & Refunds</Link></li>
+              <li style={{ marginBottom: '12px' }}><Link to="/shipping" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Shipping Info</Link></li>
               <li style={{ marginBottom: '12px' }}><Link to="/contact" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>Contact Us</Link></li>
               <li><Link to="/faq" style={{ color: '#888', textDecoration: 'none', fontSize: '13px' }}>FAQ</Link></li>
             </ul>
