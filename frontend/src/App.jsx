@@ -21,6 +21,9 @@ import AdminLogin from './pages/AdminLogin';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import HelpCenter from './pages/HelpCenter';
+import Returns from './pages/Returns';
+import Shipping from './pages/Shipping';
+import FlashSales from './pages/FlashSales';
 
 function App() {
   return (
@@ -47,6 +50,9 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/help-center" element={<HelpCenter />} />
+              <Route path="/returns" element={<Returns />} />
+              <Route path="/shipping" element={<Shipping />} />
+              <Route path="/flash-sales" element={<FlashSales />} />
             </Routes>
             <Footer />
           </Router>
